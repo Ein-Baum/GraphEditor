@@ -4,6 +4,7 @@ A small and simple graph editor that uses my own ui library
 
 ### Features
 - Adding/Deleting nodes and conections
+- Renaming nodes
 - Draging nodes around
 - Merging nodes
 - Hiding nodes (they will be grayed out)
