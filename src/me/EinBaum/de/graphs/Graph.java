@@ -120,6 +120,7 @@ public class Graph {
 		Map<Node, Node> nodeReplacements = new HashMap<>();
 		for(Node node : nodes) {
 			Node newNode = new Node(graph, node.getName(), new PixelConstraint((int) node.getPosition().x), new PixelConstraint((int) node.getPosition().y));
+			newNode.setHidden(node.isHidden());
 			graph.nodes.add(newNode);
 			nodeReplacements.put(node, newNode);
 		}

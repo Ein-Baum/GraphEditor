@@ -72,6 +72,7 @@ public class Node extends PressableUi{
 				graph.connect(this);
 			}else if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
 				if((mods & GLFW.GLFW_MOD_CONTROL) == 0) {
+					graph.saveState(hidden ? "Show" : "Hide");
 					hidden = !hidden;
 					if(hidden) {
 						this.setColor(new Color(0.1f,0.1f,0.1f,1f));
@@ -90,17 +91,23 @@ public class Node extends PressableUi{
 				}
 			}
 		}else {
-			
 		}
 		this.setPositionInterpolated(new StickToCursorConstraint(false,  StickToCursorConstraint.CENTER), new EaseCubic(), 0.1f);
+		moved = false;
 		super.release(button, mods);
 	}
+	
+	private boolean moved = false;
 	
 	@Override
 	public void press(int button) {
 		this.name.exit();
 		if(shouldMove()) {
 			if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+				if(!moved) {
+					graph.saveState("Move");
+					moved = true;
+				}
 				this.setPositionInterpolated(new StickToCursorConstraint(true,  StickToCursorConstraint.CENTER), new EaseCubic(), 0.1f);
 			}
 		}
@@ -116,6 +123,10 @@ public class Node extends PressableUi{
 	
 	public boolean isHidden() {
 		return hidden;
+	}
+	
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 
 }
